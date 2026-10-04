@@ -20,10 +20,11 @@
 - 本机服务：`npm start`，绑定 `127.0.0.1:4173`，工具会话 63066。
 - 用户入口：`http://localhost:4173/`。原有阅读记录保留，当前不再是全新空白存档。
 - 测试入口：`http://127.0.0.1:4173/`，使用独立阅读记录。
-- 原作对照服务为临时的 8765 端口，交付时关闭。
+- 原作对照服务（8765）与临时测试标签已关闭；用户预览已重载新版。
 - 源码在 `src/`；用 `npm run build` 更新根目录成品，`npm test` 检查。修改中文后先运行 `python3 scripts/subset-fonts.py`。
 - 基线副本在 Git 及忽略目录 `artifacts/side-bible-before-cinematic.*`；测试证据在 `artifacts/browser-traversal-cinematic.json`。
-- 当前无内容或权限阻塞；下一步提交并推送视觉分支，建立审阅入口，保留 main。
+- 视觉实现提交：`d7375bd`，已推送 `codex/side-bible-cinematic`。草稿审阅入口：`https://github.com/MikhailXiaomaikou/SIDE-BIBLE/pull/1`。
+- 本轮实现、验证和交付已完成，main 仍为 `80851e6`，没有合并或部署。下一步为用户查看视觉效果；没有后台制作任务。
 
 ## 初始交付历史
 - 用户选择广泛精选，并逐卷标明传统。
