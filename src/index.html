@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101d29">
+  <meta name="description" content="SIDE BIBLE · 正典之外。12 部古代书卷、72 幕中文叙事：按住，让书页显影。独立制作的非正典文献互动剧场，注明传统与原典出处。">
+  <title>SIDE BIBLE · 正典之外</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23101d29'/%3E%3Cpath d='M16 47V29a16 16 0 0 1 32 0v18M24 47V29a8 8 0 0 1 16 0v18M12 48h40' fill='none' stroke='%23c8a979' stroke-width='2'/%3E%3Ccircle cx='32' cy='12' r='3' fill='%23e9dec4'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <canvas id="world" aria-hidden="true"></canvas>
+  <div class="atmosphere" aria-hidden="true"></div>
+  <header class="masthead">
+    <button class="brand" id="homeButton" aria-label="SIDE BIBLE 首页">
+      <svg viewBox="0 0 40 44" aria-hidden="true"><path d="M6 38V22a14 14 0 0 1 28 0v16M13 38V22a7 7 0 0 1 14 0v16M2 39h36"/><circle cx="20" cy="4" r="2"/></svg>
+      <span>SIDE BIBLE<small>正典之外</small></span>
+    </button>
+    <nav aria-label="主导航">
+      <button id="libraryButton">书卷 <span class="nav-key">B</span></button>
+      <button id="journalButton">拾页 <span id="journalCount">0</span></button>
+      <button id="aboutButton">关于</button>
+      <span class="nav-divider" aria-hidden="true"></span>
+      <button class="icon-button" id="soundButton" aria-label="开启声音" aria-pressed="false" title="声音（M）"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4zM17 8q4 4 0 8"/><path class="sound-off" d="m17 10 4 4m0-4-4 4"/></svg></button>
+      <button class="icon-button desktop-only" id="fullscreenButton" aria-label="进入全屏" title="全屏（F）"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5m6 0h5v5m0 6v5h-5M9 20H4v-5"/></svg></button>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section id="landing" class="landing" aria-labelledby="landingTitle">
+      <div class="opening-note"><span class="little-star" aria-hidden="true">✧</span> 古老书卷的另一片星空</div>
+      <h1 id="landingTitle">那些书页，<br>从未沉默。</h1>
+      <p class="intro">越过熟悉的篇章，走进守望者的群山、<br class="desktop-only">童年的泥雀与失落的福音。<br>让散落在正典之外的故事，再次显影。</p>
+      <div class="entry-actions"><button class="primary-button" id="beginButton"><span id="beginLabel">展开第一卷</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></button><button class="text-button" id="browseButton">先看看书卷 <span aria-hidden="true">↗</span></button></div>
+      <p class="entry-hint" id="entryHint">按住显影 · 松手成章 · 也可以单击阅读</p>
+    </section>
+
+    <section id="reader" class="reader" aria-labelledby="sceneTitle" hidden>
+      <div class="chapter-heading"><button id="currentBookButton"></button><span id="sceneCounter"></span></div>
+      <div id="sceneDots" class="scene-dots" aria-label="本卷篇章"></div>
+      <p class="scene-label" id="sceneLabel"></p>
+      <h1 id="sceneTitle"></h1>
+      <div class="narrative-wrap"><p id="narrative" aria-live="polite"></p><p id="reference" class="reference"></p></div>
+      <div class="reader-meta"><button class="text-button" id="sourceButton">原典与注记 <span aria-hidden="true">↗</span></button><button class="bookmark-button" id="bookmarkButton" aria-pressed="false" aria-label="收藏此页"><svg viewBox="0 0 20 24" aria-hidden="true"><path d="M5 3h10v18l-5-4-5 4z"/></svg><span>收藏</span></button></div>
+      <div class="ritual-area">
+        <button id="holdButton" class="hold-button" aria-describedby="holdHelp"><span class="hold-symbol" aria-hidden="true">✧</span><span id="holdLabel">按住，让书页显影</span><span id="chargeFill" class="charge-fill" aria-hidden="true"></span></button>
+        <button class="next-button" id="nextButton">单击阅读 <span aria-hidden="true">›</span></button>
+      </div>
+      <p class="hold-help" id="holdHelp">按住此按钮或空格，光环亮起后松手</p>
+    </section>
+    <div class="scene-caption" aria-hidden="true"><span id="landscapeName">守望者之境</span><i></i><span id="landscapeDetail">群山之上，仍有星辰</span></div>
+  </main>
+
+  <footer class="page-footer">
+    <button class="footer-selection" id="featuredButton"><span class="folio">I</span><span><small id="featuredKicker">从这里启程</small><strong id="featuredTitle">以诺一书</strong></span><span class="footer-arrow" aria-hidden="true">↗</span></button>
+    <p class="edition"><span id="editionCount">12 部书卷 · 72 幕故事</span><small>中文叙事改写，逐幕附原典出处</small></p>
+    <button class="footer-progress" id="progressButton"><span>已拾得 <b id="readCount">0</b><span id="totalCount"> / 72</span></span><span class="progress-track"><i id="progressFill"></i></span></button>
+  </footer>
+
+  <dialog id="libraryDialog" class="wide-dialog" aria-labelledby="libraryTitle">
+    <div class="dialog-heading"><div><p class="dialog-kicker">每一卷，都有自己的来处</p><h2 id="libraryTitle">书卷目录</h2></div><button class="close-button" data-close aria-label="关闭书卷目录">×</button></div>
+    <div class="library-tools"><label class="search-field"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg><input type="search" id="bookSearch" placeholder="寻找书名、人物或故事" aria-label="搜索书卷"></label><div class="category-tabs" id="categoryTabs" aria-label="书卷类别"></div></div>
+    <div id="bookList" class="book-grid"></div>
+    <p class="dialog-footnote">“非正典”并非统一名单。各教会传统对这些作品的地位有不同判断，详见各卷注记。</p>
+  </dialog>
+
+  <dialog id="sourceDialog" class="reading-dialog" aria-labelledby="sourceTitle"><div class="dialog-heading"><div><p class="dialog-kicker">回到文本</p><h2 id="sourceTitle">原典与注记</h2></div><button class="close-button" data-close aria-label="关闭原典与注记">×</button></div><div id="sourceContent" class="prose"></div></dialog>
+
+  <dialog id="journalDialog" class="reading-dialog" aria-labelledby="journalTitle"><div class="dialog-heading"><div><p class="dialog-kicker">那些与你相遇的段落</p><h2 id="journalTitle">拾页</h2></div><button class="close-button" data-close aria-label="关闭拾页">×</button></div><div class="journal-tabs"><button id="visitedTab" aria-pressed="true">读过的故事</button><button id="bookmarksTab" aria-pressed="false">我的收藏</button></div><div id="journalList"></div></dialog>
+
+  <dialog id="aboutDialog" class="reading-dialog" aria-labelledby="aboutTitle"><div class="dialog-heading"><div><p class="dialog-kicker">SIDE BIBLE</p><h2 id="aboutTitle">正典之外</h2></div><button class="close-button" data-close aria-label="关闭关于">×</button></div><div class="prose"><p class="about-lead">一本没有封底的书。<br>一段用光与文字走过的旅程。</p><p>SIDE BIBLE 是一座古代文献的互动剧场，灵感来自 <a href="https://github.com/MikhailXiaomaikou/God-simulator" target="_blank" rel="noopener noreferrer">God Simulator</a> 的长按叙事。这里的代码、画面与中文故事独立制作。</p><h3>我们如何讲述</h3><p id="editorialNote"></p><p>本版选入 12 部作品的 72 个片段，属于精选导读，并非非正典文献全集，也不是任何原典的完整译本。作品的年代、版本与教会地位随卷注明；传说按其文本呈现，不当作已经证实的历史。</p><h3>如何阅读</h3><p>按住显影按钮或空格，待光环亮起后松开；也可以用“单击阅读 / 下一幕”逐页推进。书卷目录可以自由跳转，拾页保存读过和收藏的段落。</p><div class="key-guide"><span><kbd>B</kbd> 书卷</span><span><kbd>L</kbd> 拾页</span><span><kbd>M</kbd> 声音</span><span><kbd>F</kbd> 全屏</span><span><kbd>Esc</kbd> 关闭</span></div><label class="reader-setting"><input id="motionSetting" type="checkbox"> 静谧模式：暂停持续动画</label><p class="small-note">阅读记录只存在这台设备的浏览器中。清除浏览器数据会清除记录。所有画面与声音在本地生成，无需账号或联网。</p><p class="credit">选编与制作 · SIDE BIBLE<br>献给古老故事的好奇读者。</p></div></dialog>
+
+  <dialog id="finishDialog" class="reading-dialog" aria-labelledby="finishTitle"><div class="dialog-heading"><div><p class="dialog-kicker">末页之后</p><h2 id="finishTitle">故事在此停笔，<br>阅读仍可继续。</h2></div><button class="close-button" data-close aria-label="关闭旅程回顾">×</button></div><div class="prose"><p id="finishSummary"></p><p>有些文字进入了正典，有些留在了边缘，有些仅以残页抵达今天。它们的不同来处，也值得一起记住。</p><button class="primary-button" id="finishLibraryButton">回到书卷目录</button></div></dialog>
+
+  <p id="statusToast" class="toast" role="status"></p>
+  <noscript><div class="noscript">SIDE BIBLE 需要启用 JavaScript 才能显影与翻页。</div></noscript>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
