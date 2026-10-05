@@ -1,17 +1,51 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
-import { spawn } from 'node:child_process';
+import { cp, mkdir, mkdtemp, readFile, rm } from 'node:fs/promises';
+import { execFile, spawn } from 'node:child_process';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { promisify } from 'node:util';
 import { Script } from 'node:vm';
 
-test('the standalone deliverable embeds valid classic JavaScript without external runtime assets', async () => {
-  const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+const run = promisify(execFile);
+
+test('a fresh standalone build embeds valid JavaScript and all three complete fonts for offline use', async t => {
+  // Build a snapshot in isolation, so a stale checked-in HTML cannot hide a
+  // broken build, and tests never replace a running preview or touch its save.
+  const temporaryRoot = await mkdtemp(join(tmpdir(), 'side-bible-build-'));
+  t.after(() => rm(temporaryRoot, { recursive: true, force: true }));
+  await cp(new URL('../src/', import.meta.url), join(temporaryRoot, 'src'), { recursive: true });
+  await mkdir(join(temporaryRoot, 'scripts'));
+  await cp(new URL('../scripts/build.mjs', import.meta.url), join(temporaryRoot, 'scripts/build.mjs'));
+  await run(process.execPath, ['scripts/build.mjs'], { cwd: temporaryRoot });
+  const html = await readFile(join(temporaryRoot, 'index.html'), 'utf8');
   assert.match(html, /<html lang="zh-CN">/);
   assert.doesNotMatch(html, /<script[^>]+src=/);
   assert.doesNotMatch(html, /<link[^>]+rel="stylesheet"/);
+  for (const name of ['ZhiMangXing', 'MaShanZheng', 'LXGWWenKai']) {
+    const license = await readFile(join(temporaryRoot, `src/fonts/OFL-${name}.txt`), 'utf8');
+    assert.ok(html.includes(license.replace(/[ \t]+$/gm, '')), `${name} copyright and license must travel with the standalone file`);
+  }
   const scripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)];
   assert.equal(scripts.length, 1);
   assert.doesNotThrow(() => new Script(scripts[0][1]));
+
+  const styles = [...html.matchAll(/<style>([\s\S]*?)<\/style>/g)].map(match => match[1]).join('\n');
+  const fontFaces = [...styles.matchAll(/@font-face\s*\{([^}]+)\}/g)].map(match => match[1]);
+  assert.equal(fontFaces.length, 3, 'the three reading fonts must remain available offline');
+  for (const [id, family] of [['xing', 'Side Xing'], ['brush', 'Side Brush'], ['kai', 'Side Kai']]) {
+    const face = fontFaces.find(rule => rule.includes(`font-family: '${family}'`));
+    assert.ok(face, `missing embedded font family ${family}`);
+    const encoded = face.match(/url\(['"]data:font\/woff2;base64,([A-Za-z0-9+/=]+)['"]\)/)?.[1];
+    assert.ok(encoded, `${family} still depends on an external font file`);
+    const embedded = Buffer.from(encoded, 'base64');
+    const original = await readFile(join(temporaryRoot, `src/fonts/side-${id}.woff2`));
+    assert.equal(embedded.subarray(0, 4).toString('ascii'), 'wOF2', `${family} is not a WOFF2 font`);
+    assert.deepEqual(embedded, original, `${family} was truncated or changed by bundling`);
+  }
+  for (const [, url] of styles.matchAll(/url\(([^)]+)\)/g)) {
+    assert.match(url.trim().replace(/^['"]|['"]$/g, ''), /^data:/, `external runtime asset: ${url}`);
+  }
 });
 
 test('local preview serves the actual home page and modules and rejects missing files', async t => {

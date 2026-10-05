@@ -1,0 +1,125 @@
+{
+  "format": 1,
+  "fonttools_version": "4.62.1",
+  "input_files": [
+    {
+      "path": "src/content.js",
+      "sha256": "67b9e6ab18066e97962e67b7ca48ccc518504a3314a40e0160847593b52262d3"
+    },
+    {
+      "path": "src/index.html",
+      "sha256": "29828ec8dd20e6eff8595b642ea53933fa542b75ebd5868f48895f469f3c9006"
+    },
+    {
+      "path": "src/main.js",
+      "sha256": "ed8272067877151c4f230a107354d3f87c260e4522ccce499ba3009a5bd60f50"
+    }
+  ],
+  "extra_text": "旁经 SIDE BIBLE 正典之外 十二部古卷 七十二幕故事 按住画面让古卷苏醒 继续上次阅读 轻点翻页 松手成章 书卷 拾页 原典 声音 说明 归于寂静 已拾得 全部 远古与异象 智慧与拯救 福音之外 静谧模式 暂停持续动画 ，。！？；：、‘’“”（）【】《》〈〉「」『』〔〕—–…·／－％＋＝",
+  "required_codepoints": 1421,
+  "required_cjk_codepoints": 1289,
+  "subset_policy": "All source-file characters, printable ASCII, UI seed and punctuation; retain applicable GSUB/GPOS closure and Unicode variation sequences.",
+  "fonts": [
+    {
+      "id": "xing",
+      "family": "Side Xing",
+      "original": "ZhiMangXing-Regular.ttf",
+      "upstream": "Zhi Mang Xing",
+      "commit": "9710da1eacb3be272583c3224dcb70f9da6eadbb",
+      "url": "https://raw.githubusercontent.com/google/fonts/9710da1eacb3be272583c3224dcb70f9da6eadbb/ofl/zhimangxing/ZhiMangXing-Regular.ttf",
+      "sha256": "644e0cae9b40f0b10ab729a01bd32032e3973bac22be3dccae01bf6ae7fde969",
+      "license": "OFL-ZhiMangXing.txt",
+      "license_url": "https://raw.githubusercontent.com/google/fonts/9710da1eacb3be272583c3224dcb70f9da6eadbb/ofl/zhimangxing/OFL.txt",
+      "license_sha256": "10947328199e369a3e6b4a67e8e5507ed99d5bbb264a1f156415aa9b665e4d15",
+      "output": "side-xing.woff2",
+      "output_sha256": "2c39a2c9f86d9fe018b50ee2964ed59a637b2c06eb0956664fcf393d4dd23457",
+      "output_bytes": 407972,
+      "unicode_entries": 1418,
+      "glyphs": 1420,
+      "missing_cjk_count": 0,
+      "missing_other_characters": [
+        {
+          "character": "·",
+          "codepoint": "U+00B7"
+        },
+        {
+          "character": "↗",
+          "codepoint": "U+2197"
+        },
+        {
+          "character": "⤢",
+          "codepoint": "U+2922"
+        }
+      ],
+      "variation_selectors": []
+    },
+    {
+      "id": "brush",
+      "family": "Side Brush",
+      "original": "MaShanZheng-Regular.ttf",
+      "upstream": "Ma Shan Zheng",
+      "commit": "9710da1eacb3be272583c3224dcb70f9da6eadbb",
+      "url": "https://raw.githubusercontent.com/google/fonts/9710da1eacb3be272583c3224dcb70f9da6eadbb/ofl/mashanzheng/MaShanZheng-Regular.ttf",
+      "sha256": "6d2546bb189c732a8ca29af9e22457b152387d158aa459e4ac2ce1e51788b7fb",
+      "license": "OFL-MaShanZheng.txt",
+      "license_url": "https://raw.githubusercontent.com/google/fonts/9710da1eacb3be272583c3224dcb70f9da6eadbb/ofl/mashanzheng/OFL.txt",
+      "license_sha256": "d7bdb1cee215b689e23c2f95672a6084c790542170648267a55114103d756a08",
+      "output": "side-brush.woff2",
+      "output_sha256": "600cfbf574c32cf41176cf0a59b57493140351bc9f4d7d940cc5d8547ad67650",
+      "output_bytes": 561644,
+      "unicode_entries": 1418,
+      "glyphs": 1502,
+      "missing_cjk_count": 0,
+      "missing_other_characters": [
+        {
+          "character": "·",
+          "codepoint": "U+00B7"
+        },
+        {
+          "character": "↗",
+          "codepoint": "U+2197"
+        },
+        {
+          "character": "⤢",
+          "codepoint": "U+2922"
+        }
+      ],
+      "variation_selectors": []
+    },
+    {
+      "id": "kai",
+      "family": "Side Kai",
+      "original": "LXGWWenKai-Regular.ttf",
+      "upstream": "LXGW WenKai",
+      "commit": "8bd6319350fb3ae1904c1cb1a41595ab15d21140",
+      "url": "https://raw.githubusercontent.com/lxgw/LxgwWenKai/8bd6319350fb3ae1904c1cb1a41595ab15d21140/fonts/TTF/LXGWWenKai-Regular.ttf",
+      "sha256": "39ad71264b588165b469e35e6afb162a378dacd1f95348160240ba9038ac3009",
+      "license": "OFL-LXGWWenKai.txt",
+      "license_url": "https://raw.githubusercontent.com/lxgw/LxgwWenKai/8bd6319350fb3ae1904c1cb1a41595ab15d21140/OFL.txt",
+      "license_sha256": "1a25e35da1031c6c3436fde545bb9cb5aca954e9873afe510c834b8b79bd21a0",
+      "output": "side-kai.woff2",
+      "output_sha256": "baea13894d1e9687b04ca9c5efee143b7ce5641c00532d39891976347f0e23d4",
+      "output_bytes": 313796,
+      "unicode_entries": 1420,
+      "glyphs": 1632,
+      "missing_cjk_count": 0,
+      "missing_other_characters": [
+        {
+          "character": "⤢",
+          "codepoint": "U+2922"
+        }
+      ],
+      "variation_selectors": [
+        {
+          "character": "︀",
+          "codepoint": "U+FE00"
+        },
+        {
+          "character": "︁",
+          "codepoint": "U+FE01"
+        }
+      ]
+    }
+  ],
+  "total_woff2_bytes": 1283412
+}
