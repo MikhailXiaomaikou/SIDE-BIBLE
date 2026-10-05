@@ -272,12 +272,24 @@ window.addEventListener('pointerdown', event => {
   startHold('pointer', event.pointerId);
   if (hold) $('world').setPointerCapture(event.pointerId);
 });
-window.addEventListener('pointerup', event => releaseHold('pointer', event.pointerId));
+window.addEventListener('pointerup', event => {
+  if (event.button === 0) releaseHold('pointer', event.pointerId);
+  else if (hold?.origin === 'pointer') cancelHold();
+});
 window.addEventListener('pointercancel', cancelHold);
 $('world').addEventListener('lostpointercapture', cancelHold);
 $('world').addEventListener('contextmenu', event => event.preventDefault());
 $('holdButton').addEventListener('contextmenu', event => event.preventDefault());
 $('coverHoldButton').addEventListener('contextmenu', event => event.preventDefault());
+window.addEventListener('contextmenu', event => {
+  if (event.button !== 2 || (event.pointerType && event.pointerType !== 'mouse') || !inReader || document.querySelector('dialog[open]')) return;
+  const control = event.target.closest('button, a, input, select, textarea, label');
+  if (control && !['holdButton', 'nextButton'].includes(control.id)) return;
+  event.preventDefault();
+  cancelHold();
+  advance();
+  settleReveal();
+});
 $('holdButton').addEventListener('click', event => { if (!event.pointerType && event.detail === 0 && !skipAccessibleClick) advance(); });
 $('coverHoldButton').addEventListener('click', event => { if (!event.pointerType && event.detail === 0 && !skipAccessibleClick) openReader(); });
 window.addEventListener('blur', cancelHold);
